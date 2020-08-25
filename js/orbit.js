@@ -1,9 +1,9 @@
 document.addEventListener("wheel", changeDate);
 
-var testDate;
+var testDate = new Date();
 
 
-document.addEventListener('keydown', changeDate);
+// document.addEventListener('keydown', changeDate);
 // function changeDate()
 function changeDate(e)
 {
@@ -24,23 +24,24 @@ function init()
     setCanvasSize();
     renderBackground();
     renderForeground(new Date());
-    testDate = new Date();
-    // run();
+    // testDate = new Date();
+    setInterval(run, 0);
 }
 
-function run(date = new Date())
+function run()
 {
     // var date = new Date();
-    // requestAnimationFrame(renderForeground(date));
+    testDate.setDate(testDate.getDate() + 1);
+    requestAnimationFrame(renderForeground);
+    // renderForeground();
     // renderForeground(date);
 
     //loop
-    testDate.setDate(testDate.getDate() - 100);
-    setTimeout(run(date), 0);
+    // setTimeout(run(), 100);
 }
 
 //draw planets, ui elements
-function renderForeground(date)
+function renderForeground()
 {
     var foreground = document.getElementById("foreground").getContext("2d");
     var width = window.innerWidth;
@@ -55,7 +56,7 @@ function renderForeground(date)
     foreground.clearRect(0, 0, width, height);
 
     //get julian date
-    var today = date;
+    var today = testDate;
     var dd = String(today.getDate()).padStart(2, '0');
     var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
     var yyyy = today.getFullYear();
