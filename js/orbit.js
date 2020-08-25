@@ -28,7 +28,8 @@ function renderForeground(date)
     var foreground = document.getElementById("foreground").getContext("2d");
     var width = window.innerWidth;
     var height = window.innerHeight;
-    var planetScale = 50;
+    var innerScale = 50;
+    var outerScale = 20;
     
     //clear the foreground
     foreground.clearRect(0, 0, width, height);
@@ -48,15 +49,56 @@ function renderForeground(date)
 
     //consts to get approx positon of mars
     //ELEMENTS @ J2000: a, e, i, mean longitude (L), longitude of perihelion, longitude of ascending node
-	//RATES: a, e, i, mean longitude (L), longitude of perihelion, longitude of ascending node
-	var MarsElements = [1.52371034,0.09339410,1.84969142,-4.55343205,-23.94362959,49.55953891];
-    var MarsRates = [0.00001847,0.00007882,-0.00813131,19140.30268499,0.44441088,-0.29257343];
+    //RATES: a, e, i, mean longitude (L), longitude of perihelion, longitude of ascending node
+    var MercuryElements = [0.38709843, 0.20563661, 7.00559432, 252.25166724, 77.45771895, 48.33961819];
+    var MercuryRates = [0.00000000, 0.00002123, -0.00590158, 149472.67486623, 0.15940013, -0.12214182];
+    var mercuryCoords = getPlanetCoords(julianCenturies, MercuryElements, MercuryRates);
 
+    var VenusElements = [0.72332102, 0.00676399, 3.39777545, 181.97970850, 131.76755713, 76.67261496];
+    var VenusRates = [-0.00000026, -0.00005107, 0.00043494, 58517.81560260,  0.05679648,  -0.27274174];
+    var venusCoords = getPlanetCoords(julianCenturies, VenusElements, VenusRates);
 
-    //rendermars on given date
+    var EarthElements = [1.00000018, 0.01673163, -0.00054346, 100.46691572, 102.93005885, -5.11260389];
+    var EarthRates = [-0.00000003, -0.00003661, -0.01337178, 35999.37306329, 0.31795260, -0.24123856];
+    var earthCoords = getPlanetCoords(julianCenturies, EarthElements, EarthRates);
+
+	var MarsElements = [1.52371034, 0.09339410, 1.84969142, -4.55343205, -23.94362959, 49.55953891];
+    var MarsRates = [0.00001847, 0.00007882, -0.00813131, 19140.30268499, 0.44441088, -0.29257343];
     var marsCoords = getPlanetCoords(julianCenturies, MarsElements, MarsRates);
-    //draw mars
-    drawCircle((width / 2) + (marsCoords[0] * planetScale), (height / 2) - (marsCoords[1] * planetScale), 4, "red", "foreground");
+
+    var JupiterElements = [5.20248019, 0.04853590, 1.29861416, 34.33479152, 14.27495244, 100.29282654];
+    var JupiterRates = [-0.00002864, 0.00018026, -0.00322699, 3034.90371757,  0.18199196, 0.13024619];
+    var jupiterCoords = getPlanetCoords(julianCenturies, JupiterElements, JupiterRates);
+
+    var SaturnElements = [9.54149883, 0.05550825, 2.49424102, 50.07571329, 92.86136063, 113.63998702];
+    var SaturnRates = [-0.00003065, -0.00032044, 0.00451969, 1222.11494724, 0.54179478, -0.25015002];
+    var saturnCoords = getPlanetCoords(julianCenturies, SaturnElements, SaturnRates);
+
+    var UranusElements = [19.18797948, 0.04685740, 0.77298127, 314.20276625, 172.43404441, 73.96250215];
+    var UranusRates = [-0.00020455, -0.00001550, -0.00180155, 428.49512595, 0.09266985,  0.05739699];
+    var uranusCoords = getPlanetCoords(julianCenturies, UranusElements, UranusRates);
+
+    var NeptuneElements = [30.06952752, 0.00895439, 1.77005520, 304.22289287, 46.68158724, 131.78635853];
+    var NeptuneRates = [0.00006447, 0.00000818, 0.00022400, 218.46515314, 0.01009938, -0.00606302];
+    var neptuneCoords = getPlanetCoords(julianCenturies, NeptuneElements, NeptuneRates);
+
+    //draw planets
+    //mercury
+    drawCircle((width / 2) + (mercuryCoords[0] * innerScale), (height / 2) - (mercuryCoords[1] * innerScale), 4, "lightgray", "foreground");
+    //venus
+    drawCircle((width / 2) + (venusCoords[0] * innerScale), (height / 2) - (venusCoords[1] * innerScale), 6, "#7a6400", "foreground");
+    //earth
+    drawCircle((width / 2) + (earthCoords[0] * innerScale), (height / 2) - (earthCoords[1] * innerScale), 6, "#007034", "foreground");
+    //mars
+    drawCircle((width / 2) + (marsCoords[0] * innerScale), (height / 2) - (marsCoords[1] * innerScale), 5, "red", "foreground");
+    //jupiter
+    drawCircle((width / 2) + (jupiterCoords[0] * outerScale), (height / 2) - (jupiterCoords[1] * outerScale), 12, "#ff6a00", "foreground");
+    //saturn
+    drawCircle((width / 2) + (saturnCoords[0] * outerScale), (height / 2) - (saturnCoords[1] * outerScale), 10, "#ffb785", "foreground");
+    //uranus
+    drawCircle((width / 2) + (uranusCoords[0] * outerScale), (height / 2) - (uranusCoords[1] * outerScale), 9, "#00e5ff", "foreground");
+    //uranus
+    drawCircle((width / 2) + (neptuneCoords[0] * outerScale), (height / 2) - (neptuneCoords[1] * outerScale), 9, "#005591", "foreground");
 }
 
 //get x and y for mars
