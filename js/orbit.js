@@ -68,9 +68,9 @@ function renderForeground(date)
     var height = window.innerHeight;
     var innerScale = 50;
     var outerScale = 20;
-    var saturnScale = 16;
-    var uranusScale = 10;
-    var neptuneScale = 8;
+    var saturnScale = 14;
+    var uranusScale = 9;
+    var neptuneScale = 7;
     
     //clear the foreground
     foreground.clearRect(0, 0, width, height);
