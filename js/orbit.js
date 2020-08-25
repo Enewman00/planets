@@ -25,6 +25,13 @@ function changeDate(e)
     else if (e.keyCode == '39') {
         testDate.setDate(testDate.getDate() + 5);
     }
+    else if (e.keyCode == '38') { //up
+        testDate.setDate(testDate.getDate() + 1000);
+    }
+    else if (e.keyCode == '40') { //down
+        testDate.setDate(testDate.getDate() - 1000);
+    }
+
     renderForeground(testDate);
 }
 
@@ -61,6 +68,9 @@ function renderForeground(date)
     var height = window.innerHeight;
     var innerScale = 50;
     var outerScale = 20;
+    var saturnScale = 16;
+    var uranusScale = 10;
+    var neptuneScale = 8;
     
     //clear the foreground
     foreground.clearRect(0, 0, width, height);
@@ -128,11 +138,11 @@ function renderForeground(date)
     //jupiter
     drawCircle((width / 2) + (jupiterCoords[0] * outerScale), (height / 2) - (jupiterCoords[1] * outerScale), 12, "#ff6a00", "foreground");
     //saturn
-    drawCircle((width / 2) + (saturnCoords[0] * outerScale), (height / 2) - (saturnCoords[1] * outerScale), 10, "#ffb785", "foreground");
+    drawCircle((width / 2) + (saturnCoords[0] * saturnScale), (height / 2) - (saturnCoords[1] * saturnScale), 10, "#ffb785", "foreground");
     //uranus
-    drawCircle((width / 2) + (uranusCoords[0] * outerScale), (height / 2) - (uranusCoords[1] * outerScale), 9, "#00e5ff", "foreground");
+    drawCircle((width / 2) + (uranusCoords[0] * uranusScale), (height / 2) - (uranusCoords[1] * uranusScale), 9, "#00e5ff", "foreground");
     //uranus
-    drawCircle((width / 2) + (neptuneCoords[0] * outerScale), (height / 2) - (neptuneCoords[1] * outerScale), 9, "#005591", "foreground");
+    drawCircle((width / 2) + (neptuneCoords[0] * neptuneScale), (height / 2) - (neptuneCoords[1] * neptuneScale), 9, "#005591", "foreground");
 }
 
 //get x and y for mars
