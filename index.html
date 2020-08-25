@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<!--viewport so it adjusts to device width-->
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="sections.css">
+    <!-- <link href="https://fonts.googleapis.com/css?family=Montserrat|Roboto|Source+Sans+Pro|Playfair+Display" rel="stylesheet"> -->
+    <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"> -->
+    <script type="text/javascript" src="js/orbit.js"></script>
+    
+    <title>
+        Planet Location
+    </title>
+
+</head>
+
+
+<body onload="init()" onresize="init()">
+
+    <!-- <canvas id="mainCanvas">
+        Your browser does not support the HTML5 canvas tag.
+    </canvas> -->
+    <!-- CREATE CONTAINER TO HOLD BOTH CANVASES -->	
+    <div id="canvasContainer">
+        <!-- BACKGROUND LAYER (Z-INDEX 0) -->
+        <canvas id="background" style="position: absolute; left: 0; top: 0; z-index: 0;">
+        </canvas>
+        <!-- FOREGROUND LAYER (Z-INDEX 1) -->
+        <canvas id="foreground" style="position: absolute; left: 0; top: 0; z-index: 1;">
+        </canvas>
+
+    </div>
+</body>
+
+
+
+
+</html>
