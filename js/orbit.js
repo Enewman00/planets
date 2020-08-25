@@ -1,36 +1,15 @@
-// document.addEventListener("click", mouseClick);
+document.addEventListener("wheel", changeDate);
 
-// function mouseClick(event)
-// {
-//     drawCircle(event.clientX, event.clientY);
-// }
 var testDate;
-// window.onscroll = changeDate();
-window.addEventListener('scroll', function(event) {
-    if (event.originalEvent.wheelDelta >= 0) {
-    }
-    else {
-    }
-});
+
 
 document.addEventListener('keydown', changeDate);
 // function changeDate()
 function changeDate(e)
 {
-    e = e || window.event;
-
-    if (e.keyCode == '37') {
-        testDate.setDate(testDate.getDate() - 5);
-    }
-    else if (e.keyCode == '39') {
-        testDate.setDate(testDate.getDate() + 5);
-    }
-    else if (e.keyCode == '38') { //up
-        testDate.setDate(testDate.getDate() + 1000);
-    }
-    else if (e.keyCode == '40') { //down
-        testDate.setDate(testDate.getDate() - 1000);
-    }
+    // console.log(parseInt(e.deltaY));
+    testDate.setDate(testDate.getDate() + parseInt(e.deltaY));
+   
 
     renderForeground(testDate);
 }
@@ -69,8 +48,8 @@ function renderForeground(date)
     var innerScale = 50;
     var outerScale = 20;
     var saturnScale = 14;
-    var uranusScale = 9;
-    var neptuneScale = 7;
+    var uranusScale = 8.5;
+    var neptuneScale = 6.3;
     
     //clear the foreground
     foreground.clearRect(0, 0, width, height);
