@@ -4,6 +4,33 @@
 // {
 //     drawCircle(event.clientX, event.clientY);
 // }
+var testDate;
+// window.onscroll = changeDate();
+window.addEventListener('scroll', function(event) {
+    if (event.originalEvent.wheelDelta >= 0) {
+    }
+    else {
+    }
+});
+
+document.addEventListener('keydown', changeDate);
+// function changeDate()
+function changeDate(e)
+{
+    e = e || window.event;
+
+    if (e.keyCode == '37') {
+        testDate.setDate(testDate.getDate() - 5);
+    }
+    else if (e.keyCode == '39') {
+        testDate.setDate(testDate.getDate() + 5);
+    }
+    renderForeground(testDate);
+}
+
+
+
+
 
 //onload and onresize
 function init()
@@ -11,15 +38,19 @@ function init()
     setCanvasSize();
     renderBackground();
     renderForeground(new Date());
+    testDate = new Date();
     // run();
 }
 
-function run()
+function run(date = new Date())
 {
-    requestAnimationFrame(renderForeground);
+    // var date = new Date();
+    // requestAnimationFrame(renderForeground(date));
+    // renderForeground(date);
 
     //loop
-    setTimeout(run, 0);
+    testDate.setDate(testDate.getDate() - 100);
+    setTimeout(run(date), 0);
 }
 
 //draw planets, ui elements
@@ -40,12 +71,15 @@ function renderForeground(date)
     var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
     var yyyy = today.getFullYear();
 
-    console.log(dd + " " + mm + " " + yyyy);
     var julianDate = getJulianDate(yyyy, mm, dd);
-    console.log(julianDate);
     //get julian centuries since epoch 
     var julianCenturies = (julianDate - 2451545.0) / 36525  //36535 is a julian century in julian days, 2451545 is julian epoch (Jan 2000)
-    console.log(julianCenturies);
+
+    //Render Gregorian Date for Today
+	foreground.font = "20px Arial";
+	foreground.textAlign = "left";
+	foreground.fillStyle = "dimgrey";
+	foreground.fillText(yyyy +"."+ mm +"."+dd,10,340);	
 
     //consts to get approx positon of mars
     //ELEMENTS @ J2000: a, e, i, mean longitude (L), longitude of perihelion, longitude of ascending node
