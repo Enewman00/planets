@@ -1,12 +1,24 @@
 document.addEventListener("wheel", changeDate);
-
+document.addEventListener("click", changeClick);
 var testDate = new Date();
+var click = false;
+var runId;
 
 
+function changeClick(e)
+{
+    click = !click;
+    console.log(click);
+    if (!click)
+    {
+        runId = setInterval(run, 0);
+    }
+}
 // document.addEventListener('keydown', changeDate);
 // function changeDate()
 function changeDate(e)
 {
+    scrolled = true;
     // console.log(parseInt(e.deltaY));
     testDate.setDate(testDate.getDate() + parseInt(e.deltaY));
    
@@ -16,7 +28,12 @@ function changeDate(e)
 
 
 
-
+function resize()
+{
+    setCanvasSize();
+    renderBackground();
+    renderForeground(new Date());
+}
 
 //onload and onresize
 function init()
@@ -25,14 +42,19 @@ function init()
     renderBackground();
     renderForeground(new Date());
     // testDate = new Date();
-    setInterval(run, 0);
+    runId = setInterval(run, 0);
 }
 
 function run()
 {
+
     // var date = new Date();
     testDate.setDate(testDate.getDate() + 1);
     requestAnimationFrame(renderForeground);
+    if (click)
+    {
+        clearInterval(runId);
+    }
     // renderForeground();
     // renderForeground(date);
 
@@ -67,9 +89,11 @@ function renderForeground()
 
     //Render Gregorian Date for Today
 	foreground.font = "20px Arial";
-	foreground.textAlign = "left";
+	foreground.textAlign = "center";
 	foreground.fillStyle = "dimgrey";
-	foreground.fillText(yyyy +"."+ mm +"."+dd,10,340);	
+    foreground.fillText(yyyy +"."+ mm +"."+dd,window.innerWidth/2,window.innerHeight/1.3);
+    foreground.fillText("Click to toggle pause",window.innerWidth/2,window.innerHeight/1.4);	
+    foreground.fillText("Scroll to change date",window.innerWidth/2,window.innerHeight/1.5);
 
     //consts to get approx positon of mars
     //ELEMENTS @ J2000: a, e, i, mean longitude (L), longitude of perihelion, longitude of ascending node
